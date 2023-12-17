@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { SidePanel, ErrorBoundary, LoadingIndicatorProgress } from '@ohif/ui';
+import { SidePanel, ErrorBoundary, LoadingIndicatorProgress, BackgroundColor } from '@ohif/ui';
 import { ServicesManager, HangingProtocolService, CommandsManager } from '@ohif/core';
 import { useAppConfig } from '@state';
 import ViewerHeader from './ViewerHeader';
 import SidePanelWithServices from '../Components/SidePanelWithServices';
+import './ViewerLayout.css';
 
 function ViewerLayout({
   // From Extension Module Params
@@ -25,6 +26,11 @@ function ViewerLayout({
 
   const { hangingProtocolService } = servicesManager.services;
   const [showLoadingIndicator, setShowLoadingIndicator] = useState(appConfig.showLoadingIndicator);
+  const [layout, setLayout] = useState('vertical'); //============update
+  const onChangeLayoutHandler = () => {
+    setLayout(prev => (prev === 'vertical' ? 'horizontal' : 'vertical'));
+  };
+  //=================================================================horizontal
 
   /**
    * Set body classes (tailwindcss) that don't allow vertical
@@ -105,14 +111,22 @@ function ViewerLayout({
   const viewportComponents = viewports.map(getViewportComponentData);
 
   return (
-    <div>
+    <div
+      data-layout={layout}
+      className="layout"
+    >
       <ViewerHeader
         hotkeysManager={hotkeysManager}
         extensionManager={extensionManager}
         servicesManager={servicesManager}
+        //update
+        layoutBtn={{
+          onChangeLayout: onChangeLayoutHandler,
+          buttonTitle: layout === 'vertical' ? 'Horizontal Layout' : 'Vertical Layout',
+        }}
       />
       <div
-        className="relative flex w-full flex-row flex-nowrap items-stretch overflow-hidden bg-black"
+        className="main-page relative flex w-full flex-row flex-nowrap items-stretch overflow-hidden bg-black"
         style={{ height: 'calc(100vh - 52px' }}
       >
         <React.Fragment>
@@ -121,6 +135,7 @@ function ViewerLayout({
           {leftPanelComponents.length ? (
             <ErrorBoundary context="Left Panel">
               <SidePanelWithServices
+                className="left-side-panel"
                 side="left"
                 activeTabIndex={leftPanelDefaultClosed ? null : 0}
                 tabs={leftPanelComponents}
@@ -129,27 +144,29 @@ function ViewerLayout({
             </ErrorBoundary>
           ) : null}
           {/* TOOLBAR + GRID */}
-          <div className="flex h-full flex-1 flex-col">
-            <div className="relative flex h-full flex-1 items-center justify-center overflow-hidden bg-black">
-              <ErrorBoundary context="Grid">
-                <ViewportGridComp
+          <div className="main-center-screen">
+            <div className="flex h-full flex-1 flex-col">
+              <div className="relative flex h-full flex-1 items-center justify-center overflow-hidden bg-black">
+                <ErrorBoundary context="Grid">
+                  <ViewportGridComp
+                    servicesManager={servicesManager}
+                    viewportComponents={viewportComponents}
+                    commandsManager={commandsManager}
+                  />
+                </ErrorBoundary>
+              </div>
+            </div>
+            {rightPanelComponents.length ? (
+              <ErrorBoundary context="Right Panel">
+                <SidePanelWithServices
+                  side="right"
+                  activeTabIndex={rightPanelDefaultClosed ? null : 0}
+                  tabs={rightPanelComponents}
                   servicesManager={servicesManager}
-                  viewportComponents={viewportComponents}
-                  commandsManager={commandsManager}
                 />
               </ErrorBoundary>
-            </div>
+            ) : null}
           </div>
-          {rightPanelComponents.length ? (
-            <ErrorBoundary context="Right Panel">
-              <SidePanelWithServices
-                side="right"
-                activeTabIndex={rightPanelDefaultClosed ? null : 0}
-                tabs={rightPanelComponents}
-                servicesManager={servicesManager}
-              />
-            </ErrorBoundary>
-          ) : null}
         </React.Fragment>
       </div>
     </div>

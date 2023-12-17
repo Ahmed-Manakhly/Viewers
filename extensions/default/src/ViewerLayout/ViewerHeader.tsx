@@ -11,7 +11,14 @@ import Toolbar from '../Toolbar/Toolbar';
 
 const { availableLanguages, defaultLanguage, currentLanguage } = i18n;
 
-function ViewerHeader({ hotkeysManager, extensionManager, servicesManager }) {
+function ViewerHeader({
+  hotkeysManager,
+  extensionManager,
+  servicesManager,
+  layoutBtn,
+  // onChangeLayout,
+  // buttonTitle,
+}) {
   const [appConfig] = useAppConfig();
   const navigate = useNavigate();
   const location = useLocation();
@@ -106,6 +113,19 @@ function ViewerHeader({ hotkeysManager, extensionManager, servicesManager }) {
       onClickReturnButton={onClickReturnButton}
       WhiteLabeling={appConfig.whiteLabeling}
     >
+      <button
+        onClick={layoutBtn.onChangeLayout}
+        style={{
+          margin: '0 15px',
+          color: '#eee',
+          border: '2px solid #eee',
+          borderRadius: '8px',
+          padding: '8px',
+          fontSize: 'smaller',
+        }}
+      >
+        {layoutBtn.buttonTitle}
+      </button>
       <ErrorBoundary context="Primary Toolbar">
         <div className="relative flex justify-center">
           <Toolbar servicesManager={servicesManager} />

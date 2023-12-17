@@ -1,0 +1,164 @@
+/*=====================================================================   vertical  */
+[data-layout='vertical'] .main-page {
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr !important;
+  grid-template-rows: 95%;
+  gap: 0.2rem 0.2rem;
+  grid-template-areas: 'left-sdie center-main';
+}
+
+[data-layout='vertical'] .main-page .left-side-panel {
+  grid-area: left-sdie !important;
+  transition: 500ms;
+  -webkit-transition: 500ms;
+  -moz-transition: 500ms;
+  -ms-transition: 500ms;
+  -o-transition: 500ms;
+}
+
+/*====================*/
+[data-layout='vertical'] .main-page .main-center-screen {
+  display: flex !important;
+  grid-area: center-main !important;
+  transition: 500ms;
+  -webkit-transition: 500ms;
+  -moz-transition: 500ms;
+  -ms-transition: 500ms;
+  -o-transition: 500ms;
+}
+/*====================================================================    layout    */
+.layout {
+  height: 100vh;
+  overflow: auto;
+}
+/*======================================================================   horizontal  */
+
+[data-layout='horizontal'] .main-page {
+  height: 99% !important;
+  margin-top: 0.2rem;
+  overflow: visible;
+  display: grid;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: auto 1fr !important;
+  gap: 0.2rem 0.2rem;
+  grid-template-areas: 'left-side' 'center-main';
+}
+/*==================================side panel & nested elements*/
+[data-layout='horizontal'] .main-page .left-side-panel {
+  grid-area: left-side !important;
+  max-width: 100% !important ;
+  width: 100% !important;
+  height: fit-content !important;
+  max-height: fit-content !important ;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: 500ms;
+  -webkit-transition: 500ms;
+  -moz-transition: 500ms;
+  -ms-transition: 500ms;
+  -o-transition: 500ms;
+}
+/*===============================================2div*/
+[data-layout='horizontal'] .main-page .left-side-panel > div:nth-child(1) {
+  display: none;
+  margin: 0px !important;
+  height: 0px !important;
+  width: 0px !important;
+}
+[data-layout='horizontal'] .main-page .left-side-panel > div:nth-child(2) {
+  /* max-height: 5px !important; */
+  padding: 0px !important;
+  margin: 0px !important;
+  height: fit-content !important;
+  max-height: fit-content !important;
+}
+[data-layout='horizontal'] .main-page .left-side-panel > div:nth-child(2) div {
+  /* max-height: 5px !important; */
+  font-size: smaller !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  height: fit-content !important;
+  max-height: fit-content !important;
+}
+[data-layout='horizontal'] .main-page .left-side-panel > div:nth-child(2) div button {
+  padding: 3px !important;
+}
+/* ==================================================bar*/
+[data-layout='horizontal'] .main-page .left-side-panel > .ohif-scrollbar {
+  /* width: 100% !important; */
+  /* overflow-y: visible; */
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+[data-layout='horizontal'] .main-page .left-side-panel > .ohif-scrollbar > div:nth-child(1) {
+  padding: 0px !important;
+  margin: 0px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  justify-content: space-evenly !important;
+  gap: 10px;
+}
+[data-layout='horizontal'] .main-page .left-side-panel > .ohif-scrollbar > div:nth-child(1) div {
+  padding: 0px !important;
+  margin: 0px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-evenly !important;
+}
+[data-layout='horizontal']
+  .main-page
+  .left-side-panel
+  > .ohif-scrollbar
+  > div:nth-child(1)
+  div
+  div {
+  font-size: 10px !important;
+  padding: 0px !important;
+  margin: 0px 20px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+[data-layout='horizontal'] .main-page .left-side-panel > .ohif-scrollbar > #ohif-thumbnail-list {
+  /* width: 100% !important; */
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  margin-bottom: 0px !important;
+  width: 100% !important;
+  height: fit-content !important;
+  min-height: fit-content !important;
+  max-height: fit-content !important;
+  overflow: hidden;
+  font-size: x-small;
+}
+[data-layout='horizontal']
+  .main-page
+  .left-side-panel
+  > .ohif-scrollbar
+  > #ohif-thumbnail-list
+  div {
+  height: fit-content !important;
+  width: fit-content !important;
+  margin: 0px !important;
+  font-size: x-small;
+}
+
+/*==================================================================== DONE*/
+[data-layout='horizontal'] .main-center-screen {
+  display: flex !important;
+  grid-area: center-main !important;
+  height: 85%;
+  transition: 500ms;
+  -webkit-transition: 500ms;
+  -moz-transition: 500ms;
+  -ms-transition: 500ms;
+  -o-transition: 500ms;
+}
